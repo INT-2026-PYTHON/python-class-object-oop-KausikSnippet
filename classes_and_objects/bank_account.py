@@ -83,3 +83,53 @@ Explanation:
 =================================================
 
 """
+
+class BankAccount:
+
+    def __init__(self, name, account_number, opening_balance=0):
+        self.name = name                                    #name stored in the object
+        self.account_number = account_number                #account number stored in the object
+
+        if opening_balance < 0:
+            print("Opening balance cannot be negative")
+            self.balance = 0
+        else:
+            self.balance = opening_balance
+
+    def deposit(self, amount):                            #deposit method to add money to the account
+        if amount <= 0:
+            print("Invalid deposit amount")
+        else:
+            self.balance = self.balance + amount
+
+    def withdraw(self, amount):                          #withdraw method to subtract money from the account
+        if amount <= 0:
+            print("Invalid withdrawal amount")
+
+        elif amount > self.balance:
+            print("Insufficient funds")
+
+        else:
+            self.balance = self.balance - amount
+
+    def get_balance(self):                            #method to return the current balance of the account
+        return self.balance
+
+    def __str__(self):                                #account string representation for printing
+        return "Account[" + self.account_number + " - " + self.name + "]: Rs" + str(self.balance)
+
+
+#input and driver code to test the BankAccount class
+
+a1 = BankAccount("Alice", "001", 500)
+a2 = BankAccount("Bob", "002")
+
+a1.deposit(200)
+a1.withdraw(100)
+a1.withdraw(2000)    # Invalid (overdraft)
+
+a2.deposit(-50)      # Invalid
+a2.deposit(300)
+
+print(a1)
+print(a2)
