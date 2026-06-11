@@ -89,3 +89,48 @@ Explanation:
 =================================================
 
 """
+
+class Counter:
+
+    total = 0   # Class attribute
+
+    def __init__(self, name):                           #it is a constructor 
+        self.name = name                                #name is saved inside object 
+        self.count = 0   # Instance attribute
+
+    def increment(self, step=1):                    #increment method to increase the count (default is 1)
+        self.count = self.count + step              #update the current object's count
+        Counter.total = Counter.total + step        #global total is increased
+
+    def reset(self): 
+        self.count = 0
+
+    def __str__(self):                                     #string representation of the counter object for printing
+        return self.name + ": count=" + str(self.count)
+
+    @staticmethod                                         #static method to show the total count across all counter objects
+    def show_total():
+        return Counter.total
+
+
+# Driver Code
+
+c1 = Counter("clicks")
+c2 = Counter("views")
+c3 = Counter("downloads")
+
+for i in range(3):
+    c1.increment()
+
+for i in range(5):
+    c2.increment()
+
+c3.increment(10)
+
+c1.reset()
+
+print(c1)
+print(c2)
+print(c3)
+
+print("Total across all counters:", Counter.show_total())
